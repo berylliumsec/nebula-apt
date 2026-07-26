@@ -1,8 +1,8 @@
 # Nebula APT repository
 
-This directory is the complete, secret-free source scaffold for the public
-`BerylliumSec/nebula-apt` repository. Copy its contents to that repository; do
-not publish it as a subdirectory of the Nebula website.
+This is the secret-free source for the public `BerylliumSec/nebula-apt`
+repository. The generated, signed repository is published separately through
+GitHub Pages.
 
 The repository has two Debian distributions:
 
@@ -12,8 +12,9 @@ The repository has two Debian distributions:
 `channels.json` retains the current and previous release in each distribution
 so CI can prove a real package upgrade. Promotions must move a channel forward;
 downgrades and changes to an already-recorded tag are rejected. `promote.yml`
-validates a published, immutable GitHub release and opens a reviewable
-channel-change pull request. Merging that pull request makes `publish.yml`
+validates a published, immutable GitHub release and pushes a reviewable
+channel-change branch. A release manager opens its pull request using the link
+in the workflow summary. Merging that pull request makes `publish.yml`
 validate all repository-controlled input before granting signing access,
 download the DEBs, verify their release checksums and GitHub attestations,
 create signed APT metadata, test fresh install/upgrade/doctor/uninstall on
@@ -33,8 +34,9 @@ Ubuntu, Debian, and Kali, and deploy Pages.
      subkey, never the offline primary key.
    - `APT_SIGNING_PASSPHRASE`: the signing subkey passphrase.
 5. Configure GitHub Pages to use GitHub Actions.
-6. Permit Actions to create pull requests, or have a release manager push the
-   generated promotion branch and open the pull request manually.
+6. Keep Actions pull-request approval disabled. Have a release manager use the
+   workflow-summary link to open a pull request from the generated promotion
+   branch.
 7. Open and review the setup pull request. After merging, approve the initial
    `apt-release` deployment only after confirming the workflow is the reviewed
    version and the public-key fingerprint is correct.

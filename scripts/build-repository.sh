@@ -22,6 +22,7 @@ script_dir=$(CDPATH= cd "$(dirname "$0")" && pwd)
 python3 "$script_dir/channel_policy.py" "$channels"
 
 install -d -m 0755 "$public/pool" "$public/dists"
+install -m 0644 "$script_dir/../index.html" "$public/index.html"
 
 for channel in stable prerelease; do
   pool="$public/pool/$channel/main/n/nebula"

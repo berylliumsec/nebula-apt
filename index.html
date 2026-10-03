@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Install Nebula for Linux from its signed APT repository." />
+    <title>Install Nebula | Nebula APT</title>
+    <style>
+      :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202b30; background: #f7f9f8; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      a { color: #006c70; text-underline-offset: 3px; }
+      a:focus-visible, pre:focus-visible { outline: 3px solid #ba6900; outline-offset: 3px; }
+      header { border-bottom: 1px solid #d7e0dd; }
+      header, main, footer { padding: 0 max(1rem, calc((100vw - 52rem) / 2)); }
+      nav { min-height: 4.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+      nav a { min-height: 2.75rem; display: inline-flex; align-items: center; }
+      nav a:first-child { color: #202b30; font-weight: 700; text-decoration: none; }
+      main { padding-top: 3.5rem; padding-bottom: 3rem; }
+      h1 { font-size: 2.5rem; line-height: 1.1; margin: 0 0 .75rem; }
+      h2 { font-size: 1.2rem; margin: 2.25rem 0 .65rem; }
+      p { line-height: 1.6; margin: .6rem 0 1rem; }
+      .lede { font-size: 1.1rem; max-width: 42rem; }
+      .channel { color: #8a4e00; font-weight: 650; }
+      pre { white-space: pre-wrap; overflow-wrap: anywhere; padding: 1rem; margin: .75rem 0 1.25rem; background: #162729; color: #f4f8f6; border-radius: 6px; line-height: 1.55; font-size: .9rem; }
+      code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .fingerprint { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap: anywhere; font-weight: 650; }
+      footer { border-top: 1px solid #d7e0dd; padding-top: 1rem; padding-bottom: 2rem; color: #50605f; }
+      @media (max-width: 480px) { main { padding-top: 2.5rem; } nav { flex-wrap: wrap; padding: .5rem 0; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Primary navigation">
+        <a href="https://github.com/BerylliumSec/nebula">Nebula</a>
+        <a href="https://github.com/BerylliumSec/nebula-apt">APT repository</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Install Nebula</h1>
+      <p class="lede">Signed packages for Debian, Ubuntu, Kali, and compatible Linux x86_64 systems.</p>
+      <p class="channel">Current channel: prerelease</p>
+
+      <h2>1. Verify the archive key</h2>
+      <p>Check that the displayed fingerprint matches <span class="fingerprint">1D90 1EB3 4C8C 1065 F118 680D 1C5C 924C B4B5 823D</span>.</p>
+      <pre tabindex="0"><code>sudo apt update
+sudo apt install -y ca-certificates curl gnupg
+curl -fsSL https://berylliumsec.github.io/nebula-apt/nebula-archive-keyring.asc |
+  gpg --show-keys --fingerprint</code></pre>
+
+      <h2>2. Add the prerelease channel</h2>
+      <pre tabindex="0"><code>curl -fsSL https://berylliumsec.github.io/nebula-apt/nebula-archive-keyring.asc |
+  sudo gpg --dearmor --batch --yes -o /usr/share/keyrings/nebula-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/nebula-archive-keyring.gpg] https://berylliumsec.github.io/nebula-apt prerelease main" |
+  sudo tee /etc/apt/sources.list.d/nebula.list >/dev/null</code></pre>
+
+      <h2>3. Install and launch</h2>
+      <pre tabindex="0"><code>sudo apt update
+sudo apt install nebula
+nebula</code></pre>
+      <p>APT manages future package updates. Docker or Podman is required for Nebula's container terminal and automation features.</p>
+      <p>For the portable AppImage or release checksums, see the <a href="https://github.com/BerylliumSec/nebula/releases">source releases</a>. Read the <a href="https://github.com/BerylliumSec/nebula-apt">APT repository source</a> for channel and signing details.</p>
+    </main>
+    <footer>Use Nebula only on systems and networks you own or are authorized to test.</footer>
+  </body>
+</html>

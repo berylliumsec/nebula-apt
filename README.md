@@ -1,5 +1,7 @@
 # Nebula APT repository
 
+Install the current Linux x86_64 preview at the [Nebula APT installation page](https://berylliumsec.github.io/nebula-apt/).
+
 This is the secret-free source for the public `BerylliumSec/nebula-apt`
 repository. The generated, signed repository is published separately through
 GitHub Pages.
@@ -51,10 +53,11 @@ After the archive key fingerprint has been independently verified:
 ```console
 curl -fsSL https://berylliumsec.github.io/nebula-apt/nebula-archive-keyring.asc |
   sudo gpg --dearmor -o /usr/share/keyrings/nebula-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/nebula-archive-keyring.gpg] https://berylliumsec.github.io/nebula-apt stable main" |
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/nebula-archive-keyring.gpg] https://berylliumsec.github.io/nebula-apt prerelease main" |
   sudo tee /etc/apt/sources.list.d/nebula.list
 sudo apt update
 sudo apt install nebula
 ```
 
-Use `prerelease` in place of `stable` only when prerelease upgrades are wanted.
+The `prerelease` channel currently carries Nebula 3 previews. The `stable` channel
+has no package yet.

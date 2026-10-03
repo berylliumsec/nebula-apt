@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - channels.json
+      - index.html
       - nebula-archive-keyring.asc
       - scripts/**
       - .github/workflows/publish.yml
@@ -35,6 +36,7 @@ jobs:
           sh -n scripts/build-repository.sh
           sh -n scripts/smoke-test.sh
           test -s nebula-archive-keyring.asc
+          test -s index.html
           test "$(gpg --show-keys --with-colons nebula-archive-keyring.asc | awk -F: '$1 == "pub" { count++ } END { print count+0 }')" -eq 1
 
   build-and-test:
@@ -95,6 +97,7 @@ jobs:
       - name: Build and verify signed repository metadata
         run: |
           scripts/build-repository.sh channels.json downloads public "$APT_SIGNING_KEY"
+          test -s public/index.html
           gpg --dearmor <public/nebula-archive-keyring.asc >archive.gpg
           for channel in stable prerelease; do
             gpgv --keyring ./archive.gpg \

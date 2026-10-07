@@ -2,6 +2,12 @@
   "channels": {
     "prerelease": [
       {
+        "asset": "Nebula-3.0.0-beta.3-linux-x86_64.deb",
+        "sha256": "ddae958d143d54c7b75b25ac57fbbd7f93534ab10392a1f3b4e02f7b164812dc",
+        "tag": "nebula-v3.0.0-beta.3",
+        "version": "3.0.0-beta.3"
+      },
+      {
         "asset": "Nebula-3.0.0-alpha.5-linux-x86_64.deb",
         "sha256": "a2a564b8f3bf1e10593c57151f614d373b8a1e24e8aba121ad78dfba29160501",
         "tag": "nebula-v3.0.0-alpha.5",

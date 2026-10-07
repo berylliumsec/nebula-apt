@@ -10,6 +10,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+class PublicationWorkflowTests(unittest.TestCase):
+    def test_admin_gate_precedes_signing_access(self):
+        workflow = (ROOT / ".github/workflows/publish.yml").read_text()
+        guard = workflow.index("Require repository admin for APT publication")
+        signing_job = workflow.index("  build-and-test:")
+        signing_secret = workflow.index("APT_SIGNING_SUBKEY")
+        self.assertLess(guard, signing_job)
+        self.assertLess(signing_job, signing_secret)
+        self.assertIn("collaborators/$RELEASE_ACTOR/permission", workflow)
+        self.assertIn('test "$permission" = admin', workflow)
+
+
 class PromotionTests(unittest.TestCase):
     def run_promotion(
         self,
